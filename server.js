@@ -8,6 +8,7 @@ const app = express();
 const port = 8000;
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
 
 MongoClient.connect(db.uri, (err, client) => {
     if (err) {
