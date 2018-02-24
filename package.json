@@ -1,0 +1,27 @@
+{
+  "name": "parakeet",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohsinhaider/parakeet.git"
+  },
+  "author": "Mohsin Haider",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohsinhaider/parakeet/issues"
+  },
+  "homepage": "https://github.com/mohsinhaider/parakeet#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.15.1"
+  }
+}
