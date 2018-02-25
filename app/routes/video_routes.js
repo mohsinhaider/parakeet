@@ -21,9 +21,10 @@ module.exports = function(app, db) {
         console.log("Reached route /video/transcribe!");
         if (req.files) {
             var currentFile = req.files.lecturefile;
+            var currentFileName = req.files.lecturefile.name;
             var buffer = currentFile.data;
 
-            fs.writeFile("lecture.mp4", buffer, (err) => {
+            fs.writeFile("/lectures/" + currentFileName, buffer, (err) => {
                 if (err) {
                     console.log("ERROR");
                     res.send(err);
@@ -32,7 +33,7 @@ module.exports = function(app, db) {
                     console.log("File created");
                 }
 
-                const { exec } = require('child_process');
+                // const { exec } = require('child_process');
 
                 // Node child process exec mp4 -> mp3
 
@@ -58,8 +59,7 @@ module.exports = function(app, db) {
 
             });
 
-            // Sphinx
-            // Database
+            
         }
     });
 };
