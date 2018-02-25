@@ -23,10 +23,12 @@
         </div>
     </nav>
 
+    <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
+
     <div class="file-upload">
-        <form method="post" enctype="multipart/form-data" action="/video/transcribe">
+        <form method="post" enctype="multipart/form-data" action="/video/transcribe" target="dummyframe">
             <div class="image-upload-wrap">
-                <input class="file-upload-input" type="file" name="filename" accept="video/*">
+                <input class="file-upload-input" type="file" name="lecturefile" accept="video/*">
                 <div class="drag-text">
                     <h3 id="upload-text">Drop a file or select upload video</h3>
                 </div>
