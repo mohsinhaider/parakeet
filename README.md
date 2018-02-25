@@ -1,8 +1,13 @@
 # Parakeet
 
 ## USAGE
+1. git clone
+2. npm run dev
+3. navigate to 'localhost:8000/upload' to begin
 
 ## BUILD/ INSTALLATION INSTRUCTIONS
+1. Install npm to receive other packages
+2. Download Sphinx4 with a build system (Maven/Gradle)
 
 ## INTERFACES
 

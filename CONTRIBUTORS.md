@@ -1,7 +1,7 @@
 1. Mohsin Haider
    mohsinshaider@gmail.com
 
-   [What did you do?]
+   Wrote the frontend, backend, and some middleware of the application. Created RESTful routes in order to create an interpretable application.
 
 2. Hasan Rizvi
    hasangr8@gmail.com 
