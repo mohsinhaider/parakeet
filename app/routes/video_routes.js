@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = function(app, db) {
     app.post('/video', (req, res) => {
         const details = {
@@ -20,6 +22,22 @@ module.exports = function(app, db) {
         if (req.files) {
             var currentFile = req.files.lecturefile;
             var buffer = currentFile.data;
+
+            fs.writeFile("lecture.mp4", buffer, (err) => {
+                if (err) {
+                    console.log("ERROR");
+                    res.send(err);
+                }
+                else {
+                    console.log("File created");
+                }
+            });
+
+            // Call FFMPEG
+
+            // Sphinx
+
+            // Database
         }
     });
 };
