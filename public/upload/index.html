@@ -24,17 +24,17 @@
     </nav>
 
     <div class="file-upload">
-        <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Upload Video</button>
-          
-        <div class="image-upload-wrap">
-            <input class="file-upload-input" type='file' onchange="readURL(this);" accept="video/*" />
-            <div class="drag-text">
-                <h3 id="upload-text">Drop a file or select upload video</h3>
+        <form method="post" enctype="multipart/form-data" action="/video/transcribe">
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" type="file" name="filename" accept="video/*">
+                <div class="drag-text">
+                    <h3 id="upload-text">Drop a file or select upload video</h3>
+                </div>
             </div>
-        </div>
+            <br>
+            <button class="file-upload-btn" type="submit" value="upload">Upload Video</button>
+        </form>
     </div>
-
-
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

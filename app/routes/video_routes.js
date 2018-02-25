@@ -12,4 +12,10 @@ module.exports = function(app, db) {
             }
         });
     });
+
+    app.post('/video/transcribe', (req, res) => {
+        // receive mp4
+        // use fs to write bytestream into file
+        console.log("Reached route /video/transcribe!");
+    });
 };
