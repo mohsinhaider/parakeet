@@ -4,6 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Upload Lecture</title>
+    <link rel="shortcut icon" type="image/gif" href="../img/boredparrot.gif" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="../css/upload.css" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -24,7 +25,7 @@
     </nav>
 
     <iframe width="0" height="0" border="0" name="dummyframe" id="dummyframe"></iframe>
-
+    <br><br><br><br>
     <div class="file-upload">
         <form method="post" enctype="multipart/form-data" action="/video/transcribe" target="dummyframe">
             <div class="image-upload-wrap">
@@ -33,6 +34,28 @@
                     <h3 id="upload-text">Drop/Drag or Click to Add a file</h3>
                 </div>
             </div>
+            <br>
+                
+                <div class="video-title pad">
+                    <label for="title">Title:     </label>
+                    <input type="text" id="title" name="videotitle">
+                </div>
+
+                <div class="video-course pad">
+                    <label for="subject">Subject:  </label>
+                    <input type="text" id="subject" name="videosubject">
+                </div>
+
+                <div class="video-crn pad">
+                    <label for="crn">Course: </label>
+                    <input type="number" id="crn" name="videocrn">
+                </div>
+            
+                <div class="video-date pad">
+                    <label for="date">Date:    </label>
+                    <input type="date" id="date" name="videodate">
+                </div>
+            
             <br>
             <button class="file-upload-btn" type="submit" value="upload">Upload Video</button>
         </form>
