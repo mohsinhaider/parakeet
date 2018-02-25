@@ -17,5 +17,9 @@ module.exports = function(app, db) {
         // receive mp4
         // use fs to write bytestream into file
         console.log("Reached route /video/transcribe!");
+        if (req.files) {
+            var currentFile = req.files.lecturefile;
+            var buffer = currentFile.data;
+        }
     });
 };
