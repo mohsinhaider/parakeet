@@ -1,0 +1,6 @@
+.recording-listings {
+    overflow: scroll;
+    height: 650px;
+    width: 100%;
+    overflow: auto
+}
