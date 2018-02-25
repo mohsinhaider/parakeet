@@ -28,9 +28,9 @@
     <div class="file-upload">
         <form method="post" enctype="multipart/form-data" action="/video/transcribe" target="dummyframe">
             <div class="image-upload-wrap">
-                <input class="file-upload-input" type="file" name="lecturefile" accept="video/*">
+                <input class="file-upload-input" type="file" name="lecturefile" accept="video/*" onchange="readURL(this)">
                 <div class="drag-text">
-                    <h3 id="upload-text">Drop a file or select upload video</h3>
+                    <h3 id="upload-text">Drop/Drag or Click to Add a file</h3>
                 </div>
             </div>
             <br>
