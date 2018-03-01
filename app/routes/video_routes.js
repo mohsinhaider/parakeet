@@ -1,6 +1,12 @@
 const fs = require('fs');
 
 module.exports = function(app, db) {
+    app.get('/video', (req, res) => {
+        db.collection('videos').find({}).toArray((err, items) => {
+            res.send(items);
+        });
+    });
+
     app.post('/video', (req, res) => {
         const details = {
             "videoURL": req.body.videoURL
@@ -16,22 +22,31 @@ module.exports = function(app, db) {
     });
 
     app.post('/video/transcribe', (req, res) => {
-        // receive mp4
-        // use fs to write bytestream into file
-        console.log("Reached route /video/transcribe!");
         if (req.files) {
             var currentFile = req.files.lecturefile;
+
             var currentFileName = req.files.lecturefile.name;
+            var videoTitle = req.body.videotitle;
+            var videoSubject = req.body.videosubject;
+            var videoCRN = req.body.videocrn;
+            var videoDate = req.body.videodate;
+
+            const details = {
+                'src': currentFileName,
+                'title': videoTitle,
+                'subject': videoSubject,
+                'code': videoCRN,
+                'date': videoDate
+            };
+
+            db.collection('videos').insertOne(details, (err, result) => {
+                if (err) { res.send({ 'error': 'An error has occured.' }); }
+            });
+
             var buffer = currentFile.data;
 
-            fs.writeFile("/lectures/" + currentFileName, buffer, (err) => {
-                if (err) {
-                    console.log("ERROR");
-                    res.send(err);
-                }
-                else {
-                    console.log("File created");
-                }
+            fs.writeFile("public/lectures/" + currentFileName, buffer, (err) => {
+                if (err) { res.send(err); }
 
                 // const { exec } = require('child_process');
 

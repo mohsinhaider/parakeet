@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(upload());
 
-MongoClient.connect(db.uri, (err, client) => {
+MongoClient.connect(db.url, (err, client) => {
     if (err) {
         return console.log(err);
     }
