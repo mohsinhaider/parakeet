@@ -49,21 +49,15 @@ module.exports = function(app, db) {
                 if (err) { res.send(err); }
             });
 
-            // // **** CREATE TRANSCRIPTION ****
+            // **** CREATE TRANSCRIPTION ****
 
-            // const { exec } = require('child_process');
+            const { exec } = require('child_process');
 
-            // // Node child process exec mp4 -> mp3
-
-            // exec('ffmpeg -i ../../lecture.mp4 ../../newlec.mp3', (err, stdout, stderr) => {
-            //     if (err) {
-            //         console.log("Error occured in node child proc exec");
-            //         res.send(err);
-            //         return;
-            //     }
-            //     console.log(`stdout: ${stdout}`);
-            //     console.log(`stderr: ${stderr}`);
-            // });
+            exec('ffmpeg -i "' + __dirname + '/../../public/lectures/' + currentFileName + '" "' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3"', (err, stdout, stderr) => {
+                if (err) {
+                    console.log(err);
+                }
+            });
 
             // exec('ffmpeg -i ../../newlec.mp3 -acodec pcm_s16le -ac 1 -ar 16000 ../../newout.wav', (err, stdout, stderr) => {
             //     if (err) {
