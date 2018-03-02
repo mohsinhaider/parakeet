@@ -5,6 +5,18 @@ xmlHttp.onreadystatechange = function() {
         var videosResponseObject = JSON.parse(xmlHttp.response);
         var videoPlayer = document.getElementById('video-player');
         var recordingsTable = document.getElementById('recording-table');
+        
+        function bindRecordingRowClick(row, index) {
+            row.onclick = function() {
+                var videoSource = document.createElement('source');
+                videoSource.setAttribute('src', '../lectures/' + videosResponseObject[index].src);
+                if (videoPlayer.childElementCount >= 1) {
+                    videoPlayer.removeChild(videoPlayer.firstChild);
+                } 
+                videoPlayer.appendChild(videoSource);
+                videoPlayer.load();
+            }
+        }
 
         for (var i = 0; i < videosResponseObject.length; i++) {
             var currentIndex = i;
@@ -12,15 +24,8 @@ xmlHttp.onreadystatechange = function() {
             var recordingCell = recordingRow.insertCell();
 
             recordingCell.innerHTML = videosResponseObject[i].date.slice(5) + ": " + videosResponseObject[i].title;
-
-            recordingRow.onclick = function() {
-                var videoSource = document.createElement('source');
-                videoSource.setAttribute('src', '../lectures/' + videosResponseObject[currentIndex].src);
-                if (videoPlayer.childElementCount >= 1) {
-                    videoPlayer.removeChild(videoPlayer.firstChild);
-                } 
-                videoPlayer.appendChild(videoSource);
-            }
+            
+            bindRecordingRowClick(recordingRow, i);
         }
     }
 }
