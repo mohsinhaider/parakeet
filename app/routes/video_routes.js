@@ -53,22 +53,17 @@ module.exports = function(app, db) {
 
             const { exec } = require('child_process');
 
-            exec('ffmpeg -i "' + __dirname + '/../../public/lectures/' + currentFileName + '" "' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3"', (err, stdout, stderr) => {
+            exec('ffmpeg -i ' + __dirname + '/../../public/lectures/' + currentFileName + ' ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3', (err, stdout, stderr) => {
                 if (err) {
                     console.log(err);
                 }
+
+                exec('ffmpeg -i ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3' + ' -acodec pcm_s16le -ac 1 -ar 16000 ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.wav', (err, stdout, stderr) => {
+                    if (err) {
+                        console.log(err);
+                    }
+                });
             });
-
-            // exec('ffmpeg -i ../../newlec.mp3 -acodec pcm_s16le -ac 1 -ar 16000 ../../newout.wav', (err, stdout, stderr) => {
-            //     if (err) {
-            //         console.log("Error occured in node child proc exec");
-            //         res.send(err);
-            //         return;
-            //     }
-            //     console.log(`stdout: ${stdout}`);
-            //     console.log(`stderr: ${stderr}`);
-            // });
-
         }
     });
 };
