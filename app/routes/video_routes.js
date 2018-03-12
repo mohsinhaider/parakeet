@@ -52,16 +52,34 @@ module.exports = function(app, db) {
             // **** CREATE TRANSCRIPTION ****
 
             const { exec } = require('child_process');
+            var currentAbsoluteFileName = currentFileName.slice(0, -4);
 
-            exec('ffmpeg -i ' + __dirname + '/../../public/lectures/' + currentFileName + ' ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3', (err, stdout, stderr) => {
+            exec('ffmpeg -i ' + __dirname + '/../../public/lectures/' + currentFileName + ' ' + __dirname + '/../../public/audio/' + currentAbsoluteFileName + '.mp3', (err, stdout, stderr) => {
                 if (err) {
                     console.log(err);
                 }
 
-                exec('ffmpeg -i ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.mp3' + ' -acodec pcm_s16le -ac 1 -ar 16000 ' + __dirname + '/../../public/audio/' + currentFileName.slice(0, -4) + '.wav', (err, stdout, stderr) => {
+                exec('ffmpeg -i ' + __dirname + '/../../public/audio/' + currentAbsoluteFileName + '.mp3' + ' -acodec pcm_s16le -ac 1 -ar 16000 ' + __dirname + '/../../public/audio/' + currentAbsoluteFileName + '.wav', (err, stdout, stderr) => {
                     if (err) {
                         console.log(err);
                     }
+
+                    console.log("Reached speech model execution...");
+
+                    var process = exec('java -jar ' + __dirname + '/../../public/speech-model/jar/sphinx-test-0.0.1-SNAPSHOT-jar-with-dependencies.jar ' + __dirname + '/../../public/audio/' + currentAbsoluteFileName + '.wav ' + currentAbsoluteFileName, (err, stdout, stderr) => {
+                        if (err) {
+                            console.log(err);
+                        }
+
+                        var transcriptionBuffer = fs.readFileSync(__dirname + '/../../public/transcriptions/' + currentAbsoluteFileName + '.json');
+                        var transcriptionJSON = JSON.parse(transcriptionBuffer);
+                        
+                        db.collection('videos').update(
+                            { 'src': currentFileName },
+                            { $set: { 'transcription': transcriptionJSON } }
+                        );
+
+                    });
                 });
             });
         }
