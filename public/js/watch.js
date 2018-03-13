@@ -3,13 +3,13 @@ var xmlHttp = new XMLHttpRequest();
 var searchButton = document.getElementById('search-button');
 var searchBar = document.getElementById('search-bar');
 var resultTable = document.getElementById('result-table');
+var videoPlayer = document.getElementById('video-player');
 
 var currentTranscription = {};
 
 xmlHttp.onreadystatechange = function() { 
     if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
         var videosResponseObject = JSON.parse(xmlHttp.response);
-        var videoPlayer = document.getElementById('video-player');
         var resultTable = document.getElementById('result-table');
         var recordingsTable = document.getElementById('recording-table');
         
@@ -50,20 +50,58 @@ searchButton.onclick = function() {
     var searchQuery = searchBar.value;
 
     if (searchQuery != "") {
+        searchQuery = searchQuery.toLowerCase();
+        var searchQueryArray = searchQuery.split(" ");
         var currentTranscriptionResults = currentTranscription.results;
+
         for (var key in currentTranscriptionResults) {
-            var currentResult = currentTranscriptionResults[key].result;
             var currentTimestamp = currentTranscriptionResults[key].timestamp;
+            var currentResult = currentTranscriptionResults[key].result;
 
-            if (currentResult.includes(searchQuery)) {
-                var resultRow = resultTable.insertRow();
-                var resultCell = resultRow.insertCell();
-                var finalTimestamp = formatTime(Math.floor(currentTimestamp / 1000));
-
-                resultCell.innerHTML = finalTimestamp + " -> " + currentResult;
+            if (searchQueryArray.length > 1) {
+                if (currentResult.includes(searchQuery)) {
+                    loadSearchResults(currentTimestamp, currentResult);
+                }
             }
+            else {
+                var currentResultArray = currentResult.split(' ');
+
+                for (var j = 0; j < currentResultArray.length; j++) {
+                    if (searchQuery === currentResultArray[j]) {
+                        loadSearchResults(currentTimestamp, currentResult);
+                        break;
+                    }
+                }
+            }   
         }
     }
+}
+
+function loadSearchResults(currentTimestamp, currentResult) {
+    var resultRow = resultTable.insertRow();
+
+    var resultTimestampCell = resultRow.insertCell();
+    resultTimestampCell.setAttribute('valign', 'top');
+
+    var resultContentCell = resultRow.insertCell();
+
+    var timestampTotalSeconds = Math.floor(currentTimestamp / 1000)
+    var finalTimestamp = formatTime(timestampTotalSeconds);
+    var finalTimestampLinkWrapped = document.createElement('a');
+    finalTimestampLinkWrapped.setAttribute('href', '#');
+    finalTimestampLinkWrapped.innerHTML = finalTimestamp;
+
+    finalTimestampLinkWrapped.onclick = function() {
+        videoPlayer.currentTime = timestampTotalSeconds;
+        videoPlayer.play();
+    }
+
+    resultTimestampCell.appendChild(finalTimestampLinkWrapped);
+    resultContentCell.innerHTML = currentResult;
+}
+
+function bindTimestampRowClick() {
+
 }
 
 function formatTime(secondsTime) {
