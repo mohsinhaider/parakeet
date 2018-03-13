@@ -4,3 +4,7 @@
     width: 100%;
     overflow: auto
 }
+
+#result-table td {
+    padding: 0 1em 0.5em 0;
+}
