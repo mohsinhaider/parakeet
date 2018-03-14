@@ -42,9 +42,11 @@ xmlHttp.onreadystatechange = function() {
             var currentVideoProperDate = currentVideoDateArray[1] + "/" + currentVideoDateArray[2] + "/" + currentVideoDateArray[0].slice(2);
             
             var currentVideoDayAndDateDiv = document.createElement('div');
+            currentVideoDayAndDateDiv.setAttribute('id', 'recording-upload-date');
             currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ", " + currentVideoProperDate;
 
             var currentVideoTitleDiv = document.createElement('div');
+            currentVideoTitleDiv.setAttribute('id', 'recording-title');
             currentVideoTitleDiv.innerHTML = videosResponseObject[i].title;
 
             recordingCell.appendChild(currentVideoDayAndDateDiv);

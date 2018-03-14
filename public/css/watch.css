@@ -22,3 +22,11 @@
 #recording-table td div {
     text-align: center;
 }
+
+#recording-upload-date {
+    padding-bottom: .5em;
+}
+
+#recording-title {
+    font-size: .75em;
+}
