@@ -8,3 +8,17 @@
 #result-table td {
     padding: 0 1em 0.5em 0;
 }
+
+#recording-table {
+    table-layout: fixed;
+    width: 100%;
+    overflow: hidden;
+}
+
+#recording-table td {
+    padding: 1em;
+}
+
+#recording-table td div {
+    text-align: center;
+}
