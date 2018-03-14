@@ -12,6 +12,8 @@ xmlHttp.onreadystatechange = function() {
         var videosResponseObject = JSON.parse(xmlHttp.response);
         var resultTable = document.getElementById('result-table');
         var recordingsTable = document.getElementById('recording-table');
+
+        var dayOfWeekCodes = { 0: "Sunday", 1: "Monday", 2: "Tuesday", 3: "Wednesday", 4: "Thursday", 5: "Friday", 6: "Saturday" };
         
         function bindRecordingRowClick(row, index) {
             row.onclick = function() {
@@ -35,7 +37,18 @@ xmlHttp.onreadystatechange = function() {
             var recordingRow = recordingsTable.insertRow();
             var recordingCell = recordingRow.insertCell();
 
-            recordingCell.innerHTML = videosResponseObject[i].date.slice(5) + ": " + videosResponseObject[i].title;
+            var currentVideoDayUploaded = dayOfWeekCodes[new Date(videosResponseObject[i].date).getDay()];
+            var currentVideoDateArray = (videosResponseObject[i].date).split("-");
+            var currentVideoProperDate = currentVideoDateArray[1] + "/" + currentVideoDateArray[2] + "/" + currentVideoDateArray[0].slice(2);
+            
+            var currentVideoDayAndDateDiv = document.createElement('div');
+            currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ", " + currentVideoProperDate;
+
+            var currentVideoTitleDiv = document.createElement('div');
+            currentVideoTitleDiv.innerHTML = videosResponseObject[i].title;
+
+            recordingCell.appendChild(currentVideoDayAndDateDiv);
+            recordingCell.appendChild(currentVideoTitleDiv);
             
             bindRecordingRowClick(recordingRow, i);
         }
