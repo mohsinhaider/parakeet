@@ -23,10 +23,18 @@
     text-align: center;
 }
 
-#recording-upload-date {
+.recording-upload-date {
     padding-bottom: .5em;
 }
 
-#recording-title {
+.recording-title {
     font-size: .75em;
+}
+
+tr:hover {
+    background-color: lightgoldenrodyellow;
+}
+
+tr.active {
+    background-color: lightgoldenrodyellow;
 }
