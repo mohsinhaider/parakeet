@@ -18,6 +18,9 @@ xmlHttp.onreadystatechange = function() {
         function bindRecordingRowClick(row, index) {
             row.onclick = function() {
                 clearSearchResultTable();
+                unhighlightCurrentRecordingRow();
+
+                row.classList.toggle('active');
 
                 var videoSource = document.createElement('source');
                 videoSource.setAttribute('src', '../lectures/' + videosResponseObject[index].src);
@@ -36,17 +39,18 @@ xmlHttp.onreadystatechange = function() {
             var currentIndex = i;
             var recordingRow = recordingsTable.insertRow();
             var recordingCell = recordingRow.insertCell();
+            recordingRow.setAttribute('class', 'recording-row')
 
             var currentVideoDayUploaded = dayOfWeekCodes[new Date(videosResponseObject[i].date).getDay()];
             var currentVideoDateArray = (videosResponseObject[i].date).split("-");
             var currentVideoProperDate = currentVideoDateArray[1] + "/" + currentVideoDateArray[2] + "/" + currentVideoDateArray[0].slice(2);
             
             var currentVideoDayAndDateDiv = document.createElement('div');
-            currentVideoDayAndDateDiv.setAttribute('id', 'recording-upload-date');
+            currentVideoDayAndDateDiv.setAttribute('class', 'recording-upload-date');
             currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ", " + currentVideoProperDate;
 
             var currentVideoTitleDiv = document.createElement('div');
-            currentVideoTitleDiv.setAttribute('id', 'recording-title');
+            currentVideoTitleDiv.setAttribute('class', 'recording-title');
             currentVideoTitleDiv.innerHTML = videosResponseObject[i].title;
 
             recordingCell.appendChild(currentVideoDayAndDateDiv);
@@ -141,4 +145,11 @@ function clearSearchResultTable() {
     var clearedResultTableBody = document.createElement('tbody');
     clearedResultTableBody.setAttribute('id', 'result-table-body');
     currentResultTableBody.parentNode.replaceChild(clearedResultTableBody, currentResultTableBody);
+}
+
+function unhighlightCurrentRecordingRow() {
+    var recordingTableRows = document.getElementsByClassName('recording-row');
+    for (let index = 0; index < recordingTableRows.length; index++) {
+        recordingTableRows[index].classList.remove('active');
+    }
 }
