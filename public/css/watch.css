@@ -9,6 +9,10 @@
     padding: 0 1em 0.5em 0;
 }
 
+#result-table tr:hover {
+    background-color: #e3e3e3;
+}
+
 #recording-table {
     table-layout: fixed;
     width: 100%;
@@ -31,10 +35,18 @@
     font-size: .75em;
 }
 
-tr:hover {
+#recording-table tr:hover {
     background-color: lightgoldenrodyellow;
 }
 
-tr.active {
+#recording-table tr.active {
     background-color: lightgoldenrodyellow;
+}
+
+#search-bar {
+    width: 75%;
+}
+
+#search-button {
+    float: right;
 }
