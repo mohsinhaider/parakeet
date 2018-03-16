@@ -78,13 +78,16 @@ function loadLectures() {
 function processSearchQuery() {
     searchButton.onclick = function() {
         clearSearchResultTable();
+        let currentTranscriptionResults = currentTranscription.results;
         let searchQuery = searchBar.value;
 
-        if (searchQuery != '') {
+        if (searchQuery === '' || !searchQuery.replace(/\s/g, '').length) {
+            executeSearch(currentTranscriptionResults, true);
+        }
+        else if (searchQuery != '') {
             searchQuery = searchQuery.toLowerCase();
 
             let searchQueryArray = searchQuery.split(' ');
-            let currentTranscriptionResults = currentTranscription.results;
 
             executeSearch(currentTranscriptionResults, false, searchQuery, searchQueryArray);
         }
