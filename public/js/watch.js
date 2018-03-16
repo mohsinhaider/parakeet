@@ -158,8 +158,11 @@ let clearSearchResultTable = () => {
 let unhighlightCurrentRecordingRow = () => {
     let recordingTableRows = document.getElementsByClassName('recording-row');
     let recordingTableRowsArray = Array.prototype.slice.call(recordingTableRows);
-    
-    recordingTableRowsArray.every(row => row.classList.remove('active'));
+
+    for (let index = 0; index < recordingTableRows.length; index++) {
+        recordingTableRows[index].classList.remove('active');
+        
+    }
 }
 
 loadLectures();
