@@ -36,6 +36,8 @@ function loadLectures() {
                     videoSource.setAttribute('src', '../lectures/' + videosResponseObject[index].src);
                     currentTranscription = videosResponseObject[index].transcription;
 
+                    executeSearch(currentTranscription.results, true);
+
                     if (videoPlayer.childElementCount >= 1) {
                         videoPlayer.removeChild(videoPlayer.firstChild);
                     } 
@@ -80,31 +82,39 @@ function processSearchQuery() {
 
         if (searchQuery != '') {
             searchQuery = searchQuery.toLowerCase();
+
             let searchQueryArray = searchQuery.split(' ');
             let currentTranscriptionResults = currentTranscription.results;
 
-            currentTranscriptionResults.forEach(transcriptionResult => {
-                let currentTimestamp = transcriptionResult.timestamp;
-                let currentResult = transcriptionResult.result;
-
-                if (searchQueryArray.length > 1) {
-                    if (currentResult.includes(searchQuery)) {
-                        loadSearchResults(currentTimestamp, currentResult);
-                    }
-                }
-                else {
-                    let currentResultArray = currentResult.split(' ');
-
-                    for (let j = 0; j < currentResultArray.length; j++) {
-                        if (searchQuery === currentResultArray[j]) {
-                            loadSearchResults(currentTimestamp, currentResult);
-                            break;
-                        }
-                    }
-                }  
-            })
+            executeSearch(currentTranscriptionResults, false, searchQuery, searchQueryArray);
         }
     }
+}
+
+function executeSearch(currentTranscriptionResults, isDisplay, searchQuery = '', searchQueryArray = []) {
+    currentTranscriptionResults.forEach(transcriptionResult => {
+        let currentTimestamp = transcriptionResult.timestamp;
+        let currentResult = transcriptionResult.result;
+
+        if (isDisplay) {
+            loadSearchResults(currentTimestamp, currentResult);
+        }
+        else if (searchQueryArray.length > 1) {
+            if (currentResult.includes(searchQuery)) {
+                loadSearchResults(currentTimestamp, currentResult);
+            }
+        }
+        else {
+            let currentResultArray = currentResult.split(' ');
+
+            for (let j = 0; j < currentResultArray.length; j++) {
+                if (searchQuery === currentResultArray[j]) {
+                    loadSearchResults(currentTimestamp, currentResult);
+                    break;
+                }
+            }
+        }  
+    });
 }
 
 function loadSearchResults(currentTimestamp, currentResult) {
