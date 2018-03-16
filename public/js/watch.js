@@ -16,13 +16,13 @@ function loadLectures() {
             let recordingsTable = document.getElementById('recording-table');
 
             let dayOfWeekCodes = { 
-                0: "Sunday", 
-                1: "Monday", 
-                2: "Tuesday", 
-                3: "Wednesday", 
-                4: "Thursday", 
-                5: "Friday", 
-                6: "Saturday" 
+                0: 'Sunday', 
+                1: 'Monday', 
+                2: 'Tuesday', 
+                3: 'Wednesday', 
+                4: 'Thursday', 
+                5: 'Friday', 
+                6: 'Saturday' 
             };
             
             function bindRecordingRowClick(row, index) {
@@ -51,12 +51,12 @@ function loadLectures() {
                 recordingRow.setAttribute('class', 'recording-row')
 
                 let currentVideoDayUploaded = dayOfWeekCodes[new Date(videosResponseObject[i].date).getDay()];
-                let currentVideoDateArray = (videosResponseObject[i].date).split("-");
-                let currentVideoProperDate = currentVideoDateArray[1] + "/" + currentVideoDateArray[2] + "/" + currentVideoDateArray[0].slice(2);
+                let currentVideoDateArray = (videosResponseObject[i].date).split('-');
+                let currentVideoProperDate = currentVideoDateArray[1] + '/' + currentVideoDateArray[2] + '/' + currentVideoDateArray[0].slice(2);
                 
                 let currentVideoDayAndDateDiv = document.createElement('div');
                 currentVideoDayAndDateDiv.setAttribute('class', 'recording-upload-date');
-                currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ", " + currentVideoProperDate;
+                currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ', ' + currentVideoProperDate;
 
                 let currentVideoTitleDiv = document.createElement('div');
                 currentVideoTitleDiv.setAttribute('class', 'recording-title');
@@ -69,7 +69,7 @@ function loadLectures() {
             }
         }
     }
-    xmlHttp.open("GET", "/video", true);
+    xmlHttp.open('GET', '/video', true);
     xmlHttp.send(null);
 }
 
@@ -78,14 +78,14 @@ function processSearchQuery() {
         clearSearchResultTable();
         let searchQuery = searchBar.value;
 
-        if (searchQuery != "") {
+        if (searchQuery != '') {
             searchQuery = searchQuery.toLowerCase();
-            let searchQueryArray = searchQuery.split(" ");
+            let searchQueryArray = searchQuery.split(' ');
             let currentTranscriptionResults = currentTranscription.results;
 
-            for (let key in currentTranscriptionResults) {
-                let currentTimestamp = currentTranscriptionResults[key].timestamp;
-                let currentResult = currentTranscriptionResults[key].result;
+            currentTranscriptionResults.forEach(transcriptionResult => {
+                let currentTimestamp = transcriptionResult.timestamp;
+                let currentResult = transcriptionResult.result;
 
                 if (searchQueryArray.length > 1) {
                     if (currentResult.includes(searchQuery)) {
@@ -101,8 +101,8 @@ function processSearchQuery() {
                             break;
                         }
                     }
-                }   
-            }
+                }  
+            })
         }
     }
 }
@@ -135,14 +135,14 @@ let formatTime = (secondsTime) => {
     let minutes = Math.floor((secondsTime % 3600) / 60);
     let hours = Math.floor(secondsTime / 3600);
 
-    let finalTimestamp = "";
+    let finalTimestamp = '';
 
     if (hours > 0) {
-        finalTimestamp += "" + hours + ":" + (minutes < 10 ? "0" : "");
+        finalTimestamp = '' + hours + ':' + (minutes < 10 ? '0' : '');
     }
 
-    finalTimestamp += "" + minutes + ":" + (seconds < 10 ? "0" : "");
-    finalTimestamp += "" + seconds;
+    finalTimestamp += '' + minutes + ':' + (seconds < 10 ? '0' : '');
+    finalTimestamp += '' + seconds;
 
     return finalTimestamp;
 }
@@ -150,15 +150,16 @@ let formatTime = (secondsTime) => {
 let clearSearchResultTable = () => {
     let currentResultTableBody = document.getElementById('result-table-body');
     let clearedResultTableBody = document.createElement('tbody');
+
     clearedResultTableBody.setAttribute('id', 'result-table-body');
     currentResultTableBody.parentNode.replaceChild(clearedResultTableBody, currentResultTableBody);
 }
 
 let unhighlightCurrentRecordingRow = () => {
     let recordingTableRows = document.getElementsByClassName('recording-row');
-    for (let index = 0; index < recordingTableRows.length; index++) {
-        recordingTableRows[index].classList.remove('active');
-    }
+    let recordingTableRowsArray = Array.prototype.slice.call(recordingTableRows);
+    
+    recordingTableRowsArray.every(row => row.classList.remove('active'));
 }
 
 loadLectures();
