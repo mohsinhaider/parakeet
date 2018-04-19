@@ -21,6 +21,11 @@ module.exports = function(app, db) {
         });
     });
 
+    app.post('/video/store/search', (req, res) => {
+        console.log(req.body.query);
+    });
+
+
     app.post('/video/transcribe', (req, res) => {
         if (req.files) {
             var currentFile = req.files.lecturefile;
