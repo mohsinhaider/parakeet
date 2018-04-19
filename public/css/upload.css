@@ -1,9 +1,17 @@
-h3 {
-    color: red;
+body {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-body {
-  background-color: #eeeeee;
+.brand-header {
+  color: #00969C; 
+  margin-top: 11px;
+  font-weight: bold;
+}
+
+.bar-brand {
+  background-color: #E3E3E3;
 }
 
 .file-upload {
@@ -17,19 +25,18 @@ body {
   width: 100%;
   margin: 0;
   color: #fff;
-  background: #1FB264;
+  background: #00969C;
   border: none;
   padding: 10px;
   border-radius: 4px;
-  border-bottom: 4px solid #15824B;
+  border-bottom: 4px solid rgb(1, 133, 138);
   transition: all .2s ease;
   outline: none;
-  text-transform: uppercase;
   font-weight: 700;
 }
 
 .file-upload-btn:hover {
-  background: #1AA059;
+  background: rgb(1, 126, 131);
   color: #ffffff;
   transition: all .2s ease;
   cursor: pointer;
@@ -58,13 +65,13 @@ body {
 
 .image-upload-wrap {
   margin-top: 20px;
-  border: 4px dashed #1FB264;
+  border: 4px dashed #00969C;
   position: relative;
 }
 
 .image-dropping,
 .image-upload-wrap:hover {
-  background-color: #1FB264;
+  background-color: #00969C;
   border: 4px dashed #ffffff;
 }
 
@@ -79,8 +86,8 @@ body {
 
 .drag-text h3 {
   font-weight: 100;
-  text-transform: uppercase;
-  color: #15824B;
+  font-weight: bold;
+  color: rgb(1, 126, 131);
   padding: 60px 0;
 }
 
@@ -128,6 +135,7 @@ label {
   display: inline-block;
   width: 70px;
   text-align: left;
+  font-weight: bold;
 }
 
 .pad {
