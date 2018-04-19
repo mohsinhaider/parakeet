@@ -51,21 +51,23 @@ function loadLectures() {
                 let recordingRow = recordingsTable.insertRow();
                 let recordingCell = recordingRow.insertCell();
                 recordingRow.setAttribute('class', 'recording-row')
+                recordingCell.setAttribute('class', 'recording-cell-content')
+                recordingCell.setAttribute('onclick', 'changeColor(this)');
 
                 let currentVideoDayUploaded = dayOfWeekCodes[new Date(videosResponseObject[i].date).getDay()];
                 let currentVideoDateArray = (videosResponseObject[i].date).split('-');
                 let currentVideoProperDate = currentVideoDateArray[1] + '/' + currentVideoDateArray[2] + '/' + currentVideoDateArray[0].slice(2);
-                
-                let currentVideoDayAndDateDiv = document.createElement('div');
-                currentVideoDayAndDateDiv.setAttribute('class', 'recording-upload-date');
-                currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ', ' + currentVideoProperDate;
 
                 let currentVideoTitleDiv = document.createElement('div');
                 currentVideoTitleDiv.setAttribute('class', 'recording-title');
                 currentVideoTitleDiv.innerHTML = videosResponseObject[i].title;
 
-                recordingCell.appendChild(currentVideoDayAndDateDiv);
+                let currentVideoDayAndDateDiv = document.createElement('div');
+                currentVideoDayAndDateDiv.setAttribute('class', 'recording-upload-date');
+                currentVideoDayAndDateDiv.innerHTML = currentVideoDayUploaded + ', ' + currentVideoProperDate;
+
                 recordingCell.appendChild(currentVideoTitleDiv);
+                recordingCell.appendChild(currentVideoDayAndDateDiv);
                 
                 bindRecordingRowClick(recordingRow, i);
             }
@@ -176,6 +178,14 @@ let unhighlightCurrentRecordingRow = () => {
         recordingTableRows[index].classList.remove('active');
         
     }
+}
+
+let changeColor = (recordingCellContent) => {
+    var recordingCells = document.getElementsByClassName('recording-cell-content');
+    for (let i = 0; i < recordingCells.length; i++) {
+        recordingCells[i].style.color = "#2E4E64";
+    }
+    recordingCellContent.style.color = (recordingCellContent.style.color === 'white') ? ('#2E4E64') : ('white');
 }
 
 loadLectures();
