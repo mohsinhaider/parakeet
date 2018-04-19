@@ -4,6 +4,7 @@ let resultTable = document.getElementById('result-table');
 let videoPlayer = document.getElementById('video-player');
 
 let currentTranscription = {};
+let currentSelectedLecture;
 
 let xmlHttp = new XMLHttpRequest();
 
@@ -35,6 +36,8 @@ function loadLectures() {
                     let videoSource = document.createElement('source');
                     videoSource.setAttribute('src', '../lectures/' + videosResponseObject[index].src);
                     currentTranscription = videosResponseObject[index].transcription;
+
+                    currentSelectedLecture = videosResponseObject[index].src;
 
                     executeSearch(currentTranscription.results, true);
 
@@ -89,8 +92,18 @@ function processSearchQuery() {
         else if (searchQuery != '') {
             searchQuery = searchQuery.toLowerCase();
 
-            let searchQueryArray = searchQuery.split(' ');
+            xmlHttp = new XMLHttpRequest();
+            xmlHttp.open('POST', '/video/store/search', true);
+            xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
+            xmlHttp.onreadystatechange = () => { 
+                if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                    console.log(xmlHttp.responseText);
+                }
+            }
+            xmlHttp.send('query=' + searchQuery);
+
+            let searchQueryArray = searchQuery.split(' ');
             executeSearch(currentTranscriptionResults, false, searchQuery, searchQueryArray);
         }
     }
