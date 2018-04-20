@@ -151,9 +151,34 @@ body {
 }
 
 #search-bar {
+    margin-top: 10px;
     width: 75%;
 }
 
 #search-button {
+    margin-top: 10px;
     float: right;
+}
+
+#bookmark-table-body {
+    margin-top: 8px;
+    display: block;
+    height: 100px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+#bookmark-table td {
+    padding: 0 1em 0.5em 0.5em;
+}
+
+#result-table-body {
+    display: block;
+    height: 380px;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.search-header {
+    margin-top: 5px;
 }
