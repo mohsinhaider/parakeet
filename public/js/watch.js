@@ -252,71 +252,69 @@ let loadBookmarks = (currentSelectedLecture) => {
     newxmlHttp.send(null);
 }
 
+// Video
+var video = document.getElementById("video-player");
+
+// Buttons
+var playButton = document.getElementById("play-button");
+var muteButton = document.getElementById("mute");
+var fullScreenButton = document.getElementById("full-screen");
+var bookmarkButton = document.getElementById("bookmark-button");
+
+// Sliders
+var seekBar = document.getElementById("seek-bar");
+var volumeBar = document.getElementById("volume-bar");
+
+var playPause = function() {
+    if (video.paused == true) {
+        // Play the video
+        video.play();
+
+        // Update the button text to 'Pause'
+        playButton.classList.remove("fa-play");
+        playButton.classList.add("fa-pause");
+        } else {
+        // Pause the video
+        video.pause();
+
+        // Update the button text to 'Play'
+        playButton.classList.remove("fa-pause");
+        playButton.classList.add("fa-play");
+    }
+}
+
+var mute = function() {
+    if (video.muted == false) {
+        // Mute the video
+        video.muted = true;
+  
+        // Update the button text
+        muteButton.classList.remove('fa-volume-up');
+        muteButton.classList.add('fa-volume-off');
+      } else {
+        // Unmute the video
+        video.muted = false;
+  
+        // Update the button text
+        muteButton.classList.remove('fa-volume-off');
+        muteButton.classList.add('fa-volume-up');
+      }
+}
+
+var fullscreen = function() {
+    if (video.requestFullscreen) {
+        video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+        video.mozRequestFullScreen(); // Firefox
+    } else if (video.webkitRequestFullscreen) {
+        video.webkitRequestFullscreen(); // Chrome and Safari
+    }
+}
+
 loadLectures();
 processSearchQuery();
 
 window.onload = function() {
-
-  // Video
-  var video = document.getElementById("video-player");
-
-  // Buttons
-  var playButton = document.getElementById("play-button");
-  var muteButton = document.getElementById("mute");
-  var fullScreenButton = document.getElementById("full-screen");
-  var bookmarkButton = document.getElementById("bookmark-button");
-
-  // Sliders
-  var seekBar = document.getElementById("seek-bar");
-  var volumeBar = document.getElementById("volume-bar");
-
-  playButton.addEventListener("click", function() {
-    if (video.paused == true) {
-      // Play the video
-      video.play();
-
-      // Update the button text to 'Pause'
-      playButton.classList.remove("fa-play");
-      playButton.classList.add("fa-pause");
-    } else {
-      // Pause the video
-      video.pause();
-
-      // Update the button text to 'Play'
-      playButton.classList.remove("fa-pause");
-      playButton.classList.add("fa-play");
-    }
-  });
-
-  // Event listener for the mute button
-  muteButton.addEventListener("click", function() {
-    if (video.muted == false) {
-      // Mute the video
-      video.muted = true;
-
-      // Update the button text
-      muteButton.classList.remove('fa-volume-up');
-      muteButton.classList.add('fa-volume-off');
-    } else {
-      // Unmute the video
-      video.muted = false;
-
-      // Update the button text
-      muteButton.classList.remove('fa-volume-off');
-      muteButton.classList.add('fa-volume-up');
-    }
-  });
-
-  // Fullscreen
-  fullScreenButton.addEventListener("click", function() {
-    if (video.requestFullscreen) {
-      video.requestFullscreen();
-    } else if (video.mozRequestFullScreen) {
-      video.mozRequestFullScreen(); // Firefox
-    } else if (video.webkitRequestFullscreen) {
-      video.webkitRequestFullscreen(); // Chrome and Safari
-    }
-  });
 
   // Update video when seekbar changes
   seekBar.addEventListener("change", function() {
