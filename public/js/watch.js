@@ -38,6 +38,7 @@ function loadLectures() {
                     currentTranscription = videosResponseObject[index].transcription;
 
                     currentSelectedLecture = videosResponseObject[index].src;
+                    loadBookmarks(currentSelectedLecture);
 
                     executeSearch(currentTranscription.results, true);
 
@@ -95,13 +96,15 @@ function processSearchQuery() {
             xmlHttp = new XMLHttpRequest();
             xmlHttp.open('POST', '/video/store/search', true);
             xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            
+            let requestParams = 'query=' + searchQuery + '&video=' + currentSelectedLecture;
 
             xmlHttp.onreadystatechange = () => { 
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     console.log(xmlHttp.responseText);
                 }
             }
-            xmlHttp.send('query=' + searchQuery);
+            xmlHttp.send(requestParams);
 
             let searchQueryArray = searchQuery.split(' ');
             executeSearch(currentTranscriptionResults, false, searchQuery, searchQueryArray);
@@ -199,6 +202,54 @@ let changeColor = (recordingCellContent) => {
         recordingCells[i].style.color = "#2E4E64";
     }
     recordingCellContent.style.color = (recordingCellContent.style.color === 'white') ? ('#2E4E64') : ('white');
+}
+
+let sendTimestamp = () => {
+    xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', '/video/store/bookmark', true);
+    xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            
+    let requestParams = 'time=' + videoPlayer.currentTime + '&video=' + currentSelectedLecture;
+
+    xmlHttp.onreadystatechange = () => { 
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            console.log(xmlHttp.responseText);
+        }
+    }
+    xmlHttp.send(requestParams);
+}
+
+let loadBookmarks = (currentSelectedLecture) => {
+    let newxmlHttp = new XMLHttpRequest();
+
+    newxmlHttp.onreadystatechange = () => { 
+        if (newxmlHttp.readyState == 4 && newxmlHttp.status == 200) {
+            let bookmarksResponseObject = JSON.parse(newxmlHttp.response);
+            let currentBookmarks = bookmarksResponseObject[0].bookmarks;
+
+            let bookmarkTable = document.getElementById('bookmark-table-body');
+            bookmarkTable.innerHTML = "";
+
+            for (let i = 0; i < currentBookmarks.length; i++) {
+                let bookmarkRow = bookmarkTable.insertRow();
+                let bookmarkCell = bookmarkRow.insertCell();
+                
+                let formattedBookmarkTime = formatTime(currentBookmarks[i]).split('.');
+
+                let bookmarkTimestampLinkWrapped = document.createElement('a');
+                bookmarkTimestampLinkWrapped.setAttribute('href', '#');
+                bookmarkTimestampLinkWrapped.innerHTML = formattedBookmarkTime[0];
+            
+                bookmarkTimestampLinkWrapped.onclick = function() {
+                    videoPlayer.currentTime = currentBookmarks[i];
+                    videoPlayer.play();
+                }
+                bookmarkCell.appendChild(bookmarkTimestampLinkWrapped);
+            }
+        }
+    }
+    newxmlHttp.open('GET', '/video/store/bookmark/' + currentSelectedLecture, true);
+    newxmlHttp.send(null);
 }
 
 loadLectures();
