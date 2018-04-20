@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Teacher View</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" media="screen" href="../css/teach.css" />
+</head>
+<body>
+    <nav class="navbar navbar-fixed-top navbar-light navbar-expand-md bar-brand">
+        <div class="row">
+          <img class="navbar-brand" src="../img/Parakeet_bird.svg" width="64" height="64" alt="logo" hspace="15">
+          <ul class="nav navbar-nav">
+            <h1 class="brand-header">Parakeet</h1>
+          </ul>
+        </div>
+    </nav>
+
+    <br>
+    <div class="row">
+        <div class="recording-listings col-md-2" style="background-color: #f9f7f4; padding-left: 30px; padding-top: 10px;">
+            <h3 class="text-brand">Lectures</h3>
+            <table id="recording-table"></table>  
+        </div>
+        <div class="col-md-4 offset-md-1" style="background-color: #f9f7f4;">
+            <video id="video-player" width="630" height="360" controls controlsList="nodownload"></video>
+            <div id="comment-box">
+                <textarea id="new-comment" name="new-comment" placeholder="Comment..."></textarea>
+                <div id="new-comment-buttons">
+                    <button class="comment-button">Post</button>
+                </div>
+            </div>
+            <div id="comment-section">
+                    <div class="comment">
+                        <div class="comment-header">
+                            <h4>Anonymous Elephant</h4>
+                        </div>
+                        <div class="comment-body">
+                            <p>What exactly is happening @ 0:11?</p>
+                        </div>
+                        <div class="comment reply" :key="index">
+                            <div class="comment-header">
+                                <h4>Professor</h4>
+                            </div>
+                            <div class="comment-body">
+                                <p>I'm an example help comment from the professor!</p>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 offset-md-1" style="background-color: #f9f7f4; padding-right: 30px; padding-top: 10px;">
+            <h3 class="text-brand">Word Search Volume</h3>
+            <div id="tester" style="width:600px;height:350px;"></div>
+            <h3 class="text-brand search-header">Bookmark Trends</h3>
+            <div id="tester2" style="width:600px;height:350px;"></div>
+        </div>
+    </div>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="../js/teach.js"></script>
+</body>
+</html>
