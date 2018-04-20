@@ -20,7 +20,7 @@ body {
 
 #new-comment {
     margin-top: 20px;
-    width: 575px;
+    width: 775px;
     background-color: #DDDDDD;
     border: none;
     padding: 10px;
@@ -74,7 +74,7 @@ body {
 
 #comment-section {
     margin-top: 30px;
-    max-width: 640px;
+    max-width: 775px;
   }
   
 .comment-header {

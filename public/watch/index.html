@@ -31,7 +31,8 @@
             <table id="recording-table"></table>  
         </div>
         <div class="col-md-5 offset-md-1" style="background-color: #f9f7f4;">
-            <video id="video-player" width="575" height="360" controls controlsList="nodownload"></video>
+            <video id="video-player" width="780" height="360" controls controlsList="nodownload"></video>
+            <br>
             <button id="bookmark-button" onclick="sendTimestamp()">Bookmark</button>
             <div id="comment-box">
                 <textarea id="new-comment" name="new-comment" cols="54" rows="3" placeholder="Comment..."></textarea>
@@ -44,21 +45,27 @@
             <div id="comment-section">
                 <div class="comment">
                     <div class="comment-header">
-                        <h4>{{ comment.poster }}</h4>
+                        <h4>Anonymous Elephant</h4>
                     </div>
                     <div class="comment-body">
-                        <p>{{ comment.content }}</p>
+                        <p>What exactly is happening @ 0:11?</p>
                     </div>
                     <div class="comment reply" :key="index">
                         <div class="comment-header">
-                            <h4>{{ reply.poster }}</h4>
+                            <h4>Professor</h4>
                         </div>
                         <div class="comment-body">
-                            <p>{{ reply.content }}</p>
+                            <p>I'm an example help comment from the professor!</p>
                         </div>
                     </div>
                 </div>
             </div>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
         </div>
 
         <div class="col-md-3 offset-md-1" style="background-color: #f9f7f4; padding-right: 30px; padding-top: 10px;">
