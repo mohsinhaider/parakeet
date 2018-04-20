@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" media="screen" href="../css/watch.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" integrity="sha384-SlE991lGASHoBfWbelyBPLsUlwY1GwNDJo3jSJO04KZ33K2bwfV9YBauFfnzvynJ" crossorigin="anonymous"></script>
 </head>
 <body>
     <nav class="navbar navbar-fixed-top navbar-light navbar-expand-md bar-brand">
@@ -28,11 +29,18 @@
     <div class="row">
         <div class="recording-listings col-md-2" style="background-color: #f9f7f4; padding-left: 30px; padding-top: 10px;">
             <h3 class="text-brand">Lectures</h3>
-            <table id="recording-table"></table>  
+            <table id="recording-table"></table>
         </div>
         <div class="col-md-5 offset-md-1" style="background-color: #f9f7f4;">
-            <video id="video-player" width="575" height="360" controls controlsList="nodownload"></video>
-            <button id="bookmark-button" onclick="sendTimestamp()">Bookmark</button>
+            <video id="video-player" width="575" height="360"></video>
+            <div id="video-controls">
+              <i id="play-button" class="fas fa-play control"></i>
+              <input type="range" id="seek-bar" value="0">
+              <i id="mute" class="fas fa-volume-up control"></i>
+              <input type="range" id="volume-bar" value="0" step="0.1" min="0" max="1">
+              <i class="far fa-bookmark control" id="bookmark-button" onclick="sendTimestamp()"></i>
+              <i class="fas fa-arrows-alt control" id="full-screen"></i>
+            </div>
             <div id="comment-box">
                 <textarea id="new-comment" name="new-comment" cols="54" rows="3" placeholder="Comment..."></textarea>
                 <div id="new-comment-buttons">
@@ -71,7 +79,7 @@
                 </thead>
                 <tbody id="bookmark-table-body">
                 </tbody>
-            </table>  
+            </table>
             <h3 class="text-brand search-header">Search</h3>
             <input type="text" id="search-bar" placeholder="Search in this lecture..." onkeydown="if (event.keyCode === 13) { document.getElementById('search-button').click(); }">
             <button id="search-button">Search</button>
@@ -79,7 +87,7 @@
             <br>
             <table id="result-table">
                 <tbody id="result-table-body"></tbody>
-            </table>  
+            </table>
         </div>
     </div>
 

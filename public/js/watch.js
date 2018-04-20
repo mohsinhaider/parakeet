@@ -9,23 +9,23 @@ let currentSelectedLecture;
 let xmlHttp = new XMLHttpRequest();
 
 function loadLectures() {
-    xmlHttp.onreadystatechange = () => { 
+    xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             let videosResponseObject = JSON.parse(xmlHttp.response);
 
             let resultTable = document.getElementById('result-table');
             let recordingsTable = document.getElementById('recording-table');
 
-            let dayOfWeekCodes = { 
-                0: 'Sunday', 
-                1: 'Monday', 
-                2: 'Tuesday', 
-                3: 'Wednesday', 
-                4: 'Thursday', 
-                5: 'Friday', 
-                6: 'Saturday' 
+            let dayOfWeekCodes = {
+                0: 'Sunday',
+                1: 'Monday',
+                2: 'Tuesday',
+                3: 'Wednesday',
+                4: 'Thursday',
+                5: 'Friday',
+                6: 'Saturday'
             };
-            
+
             function bindRecordingRowClick(row, index) {
                 row.onclick = function() {
                     clearSearchResultTable();
@@ -44,7 +44,7 @@ function loadLectures() {
 
                     if (videoPlayer.childElementCount >= 1) {
                         videoPlayer.removeChild(videoPlayer.firstChild);
-                    } 
+                    }
 
                     videoPlayer.appendChild(videoSource);
                     videoPlayer.load();
@@ -72,7 +72,7 @@ function loadLectures() {
 
                 recordingCell.appendChild(currentVideoTitleDiv);
                 recordingCell.appendChild(currentVideoDayAndDateDiv);
-                
+
                 bindRecordingRowClick(recordingRow, i);
             }
         }
@@ -96,10 +96,10 @@ function processSearchQuery() {
             xmlHttp = new XMLHttpRequest();
             xmlHttp.open('POST', '/video/store/search', true);
             xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            
+
             let requestParams = 'query=' + searchQuery + '&video=' + currentSelectedLecture;
 
-            xmlHttp.onreadystatechange = () => { 
+            xmlHttp.onreadystatechange = () => {
                 if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
                     console.log(xmlHttp.responseText);
                 }
@@ -134,7 +134,7 @@ function executeSearch(currentTranscriptionResults, isDisplay, searchQuery = '',
                     break;
                 }
             }
-        }  
+        }
     });
 }
 
@@ -192,7 +192,7 @@ let unhighlightCurrentRecordingRow = () => {
 
     for (let index = 0; index < recordingTableRows.length; index++) {
         recordingTableRows[index].classList.remove('active');
-        
+
     }
 }
 
@@ -208,10 +208,10 @@ let sendTimestamp = () => {
     xmlHttp = new XMLHttpRequest();
     xmlHttp.open('POST', '/video/store/bookmark', true);
     xmlHttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-            
+
     let requestParams = 'time=' + videoPlayer.currentTime + '&video=' + currentSelectedLecture;
 
-    xmlHttp.onreadystatechange = () => { 
+    xmlHttp.onreadystatechange = () => {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             console.log(xmlHttp.responseText);
         }
@@ -222,7 +222,7 @@ let sendTimestamp = () => {
 let loadBookmarks = (currentSelectedLecture) => {
     let newxmlHttp = new XMLHttpRequest();
 
-    newxmlHttp.onreadystatechange = () => { 
+    newxmlHttp.onreadystatechange = () => {
         if (newxmlHttp.readyState == 4 && newxmlHttp.status == 200) {
             let bookmarksResponseObject = JSON.parse(newxmlHttp.response);
             let currentBookmarks = bookmarksResponseObject[0].bookmarks;
@@ -233,13 +233,13 @@ let loadBookmarks = (currentSelectedLecture) => {
             for (let i = 0; i < currentBookmarks.length; i++) {
                 let bookmarkRow = bookmarkTable.insertRow();
                 let bookmarkCell = bookmarkRow.insertCell();
-                
+
                 let formattedBookmarkTime = formatTime(currentBookmarks[i]).split('.');
 
                 let bookmarkTimestampLinkWrapped = document.createElement('a');
                 bookmarkTimestampLinkWrapped.setAttribute('href', '#');
                 bookmarkTimestampLinkWrapped.innerHTML = formattedBookmarkTime[0];
-            
+
                 bookmarkTimestampLinkWrapped.onclick = function() {
                     videoPlayer.currentTime = currentBookmarks[i];
                     videoPlayer.play();
@@ -254,3 +254,101 @@ let loadBookmarks = (currentSelectedLecture) => {
 
 loadLectures();
 processSearchQuery();
+
+window.onload = function() {
+
+  // Video
+  var video = document.getElementById("video-player");
+
+  // Buttons
+  var playButton = document.getElementById("play-button");
+  var muteButton = document.getElementById("mute");
+  var fullScreenButton = document.getElementById("full-screen");
+  var bookmarkButton = document.getElementById("bookmark-button");
+
+  // Sliders
+  var seekBar = document.getElementById("seek-bar");
+  var volumeBar = document.getElementById("volume-bar");
+
+  playButton.addEventListener("click", function() {
+    if (video.paused == true) {
+      // Play the video
+      video.play();
+
+      // Update the button text to 'Pause'
+      playButton.classList.remove("fa-play");
+      playButton.classList.add("fa-pause");
+    } else {
+      // Pause the video
+      video.pause();
+
+      // Update the button text to 'Play'
+      playButton.classList.remove("fa-pause");
+      playButton.classList.add("fa-play");
+    }
+  });
+
+  // Event listener for the mute button
+  muteButton.addEventListener("click", function() {
+    if (video.muted == false) {
+      // Mute the video
+      video.muted = true;
+
+      // Update the button text
+      muteButton.classList.remove('fa-volume-up');
+      muteButton.classList.add('fa-volume-off');
+    } else {
+      // Unmute the video
+      video.muted = false;
+
+      // Update the button text
+      muteButton.classList.remove('fa-volume-off');
+      muteButton.classList.add('fa-volume-up');
+    }
+  });
+
+  // Fullscreen
+  fullScreenButton.addEventListener("click", function() {
+    if (video.requestFullscreen) {
+      video.requestFullscreen();
+    } else if (video.mozRequestFullScreen) {
+      video.mozRequestFullScreen(); // Firefox
+    } else if (video.webkitRequestFullscreen) {
+      video.webkitRequestFullscreen(); // Chrome and Safari
+    }
+  });
+
+  // Update video when seekbar changes
+  seekBar.addEventListener("change", function() {
+    // Calculate the new time
+    var time = video.duration * (seekBar.value / 100);
+
+    // Update the video time
+    video.currentTime = time;
+  });
+
+  // Update seekbar with video
+  video.addEventListener("timeupdate", function() {
+    // Calculate the slider value
+    var value = (100 / video.duration) * video.currentTime;
+
+    // Update the slider value
+    seekBar.value = value;
+  });
+
+  // Pause the video when the slider handle is being dragged
+  seekBar.addEventListener("mousedown", function() {
+    video.pause();
+  });
+
+  // Play the video when the slider handle is dropped
+  seekBar.addEventListener("mouseup", function() {
+    video.play();
+  });
+
+  // Event listener for the volume bar
+  volumeBar.addEventListener("change", function() {
+    // Update the video volume
+    video.volume = volumeBar.value;
+  });
+}
