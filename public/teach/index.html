@@ -33,22 +33,22 @@
                 </div>
             </div>
             <div id="comment-section">
-                <div class="comment">
-                    <div class="comment-header">
-                        <h4>{{ comment.poster }}</h4>
-                    </div>
-                    <div class="comment-body">
-                        <p>{{ comment.content }}</p>
-                    </div>
-                    <div class="comment reply" :key="index">
+                    <div class="comment">
                         <div class="comment-header">
-                            <h4>{{ reply.poster }}</h4>
+                            <h4>Anonymous Elephant</h4>
                         </div>
                         <div class="comment-body">
-                            <p>{{ reply.content }}</p>
+                            <p>What exactly is happening @ 0:11?</p>
+                        </div>
+                        <div class="comment reply" :key="index">
+                            <div class="comment-header">
+                                <h4>Professor</h4>
+                            </div>
+                            <div class="comment-body">
+                                <p>I'm an example help comment from the professor!</p>
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
 

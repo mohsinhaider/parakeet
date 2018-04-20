@@ -66,7 +66,7 @@ let loadVideoOneCharts = () => {
 let loadVideoTwoCharts = () => {
     var data = [{
         x: ['express', 'routes', 'model', 'developing'],
-        y: [5, 8, 2, 3],
+        y: [6, 3, 5, 2],
         type: 'bar' 
     }];
       
