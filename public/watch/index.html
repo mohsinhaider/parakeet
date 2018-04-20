@@ -32,6 +32,7 @@
         </div>
         <div class="col-md-5 offset-md-1" style="background-color: #f9f7f4;">
             <video id="video-player" width="575" height="360" controls controlsList="nodownload"></video>
+            <button id="bookmark-button" onclick="sendTimestamp()">Bookmark</button>
             <div id="comment-box">
                 <textarea id="new-comment" name="new-comment" cols="54" rows="3" placeholder="Comment..."></textarea>
                 <div id="new-comment-buttons">
@@ -61,6 +62,17 @@
         </div>
 
         <div class="col-md-3 offset-md-1" style="background-color: #f9f7f4; padding-right: 30px; padding-top: 10px;">
+            <h3 class="text-brand">Bookmarks</h3>
+            <table id="bookmark-table">
+                <thead id="bookmark-th">
+                    <tr>
+                        <th>Visit a bookmark by clicking below.</th>
+                    </tr>
+                </thead>
+                <tbody id="bookmark-table-body">
+                </tbody>
+            </table>  
+            <h3 class="text-brand search-header">Search</h3>
             <input type="text" id="search-bar" placeholder="Search in this lecture..." onkeydown="if (event.keyCode === 13) { document.getElementById('search-button').click(); }">
             <button id="search-button">Search</button>
             <br>
